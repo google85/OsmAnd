@@ -1,0 +1,97 @@
+name: Android CI - build custom APK
+
+on:
+  push:
+    branches: [ "custom-apk" ]
+#    branches: [ "master" ]
+#  pull_request:
+#    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build & generate custom APK from project
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout OsmAnd
+      uses: actions/checkout@v3
+      with:
+        path: android
+    - name: checkout OsmAnd-resources
+      uses: actions/checkout@v3
+      with:
+        repository: osmandapp/OsmAnd-resources
+        path: resources
+    - name: checkout OsmAnd-core
+      uses: actions/checkout@v3
+      with:
+        repository: osmandapp/OsmAnd-core
+        path: core
+    - name: checkout OsmAnd-core-legacy
+      uses: actions/checkout@v3
+      with:
+        repository: osmandapp/OsmAnd-core-legacy
+        path: core-legacy
+    - name: checkout OsmAnd-build
+      uses: actions/checkout@v3
+      with:
+        repository: osmandapp/OsmAnd-build
+        path: build
+    - name: checkout OsmAnd-tools
+      uses: actions/checkout@v3
+      with:
+        repository: osmandapp/OsmAnd-tools
+        path: tools
+    - name: checkout OsmAnd-misc
+      uses: actions/checkout@v3
+      with:
+        repository: osmandapp/OsmAnd-misc
+        path: misc
+
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+#        cache: gradle
+
+#    - name: Adding my keystore file content from secret
+#      run: |
+#        cd keystores/ && echo "${{ secrets.MY_KEYSTORE_FILE_BASE64 }}" > ./my.keystore.encoded.txt && openssl base64 -d -in ./my.keystore.encoded.txt -out ./my.keystore && ls -al
+
+#    - name: Changing build number suffix in build.gradle to '${{ github.run_number }}'
+#      run: |
+#        cd app/ && \
+#        sed -i -r 's/versionName \"(.*)-([0-9]{2})\"$/versionName "\1-${{ github.run_number }}"/' build.gradle && \
+#        sed -i -r 's/versionCode (.*)([0-9]{2})$/versionCode \1${{ github.run_number }}/' build.gradle
+
+    - name: Get current date with timezone into env variable
+      run: |
+        echo "DATE_LAST_BUILD=$(TZ=':Europe/Bucharest' date +'%Y%m%d')" >> "$GITHUB_ENV"    && \
+        echo "DATETIME_LAST_BUILD=$(TZ=':Europe/Bucharest' date +'%F\ %H:%M\ %Z')" >> "$GITHUB_ENV"
+
+    - name: Grant execute permission for Gradlew
+      working-directory: ./android
+      run: chmod +x ./gradlew
+    - name: Patch memory requirements
+      working-directory: ./android
+      run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
+
+    - name: Build Android APK with Gradle
+      working-directory: ./android
+      run: ./gradlew assembleNightlyFreeLegacyFatDebug
+      #run: ./gradlew assembleRelease  --no-daemon
+
+    - name: Rename APK
+      working-directory: ./android
+      run: mv OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug.apk OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug-$(git log -n 1 --format='%h').apk
+
+    - name: Archive APK (Upload artifact)
+      uses: actions/upload-artifact@v3
+      with:
+        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
+        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
+        retention-days: 90
