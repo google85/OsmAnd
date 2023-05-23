@@ -72,21 +72,15 @@ jobs:
       working-directory: ./android
       env:
         OSMAND_DIR: "."
-        APP_VERSION: "4.5.1"
-        APP_VERCODE: 4501
-        APP_EDITION: "2023-05-23-16:31 edition"
-        APP_NAME: "OsmAndDjBpF"
+        APP_VERSION: "4.5.0"
+        APP_VERCODE: 4500
       run: |
         sed -i \
           -e "s/System.getenv(\"APK_VERSION\")/\"$APP_VERSION\"/g" \
           "$OSMAND_DIR/build.gradle"    &&
         sed -i \
           -e "s/System.getenv(\"APK_NUMBER_VERSION\")/\"$APP_VERCODE\"/g" \
-          "$OSMAND_DIR/build.gradle"    &&
-        sed -i \
-          -e "s/System.getenv(\"TARGET_APP_NAME\")/\"$APP_NAME\"/g" \
           "$OSMAND_DIR/build.gradle"
-
 
     - name: Get current date with timezone into env variable
       run: |
@@ -103,7 +97,8 @@ jobs:
     - name: Build Android APK with Gradle
       working-directory: ./android
       env:
-        APP_EDITION: "2023-05-23-16:33 edition"
+        TARGET_APP_NAME: "OsmAndDjBpF"
+        APP_EDITION: "2023-05-23-17:12"
         APK_VERSION_SUFFIX: "#build${{ github.run_number }}"
       run: ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
