@@ -71,19 +71,20 @@ jobs:
     - name: Changing night build information (version/appname)
       working-directory: ./android
       env:
+        OSMAND_DIR: "."
         APP_VERSION: "4.5.1"
         APP_VERCODE: 4501
         APP_NAME: "OsmAndDjBpF"
       run: |
         sed -i \
           -e "s/System.getenv(\"APK_VERSION\")/\"$APP_VERSION\"/g" \
-          "$osmand_dir/build.gradle"    &&
+          "$OSMAND_DIR/build.gradle"    &&
         sed -i \
           -e "s/System.getenv(\"APK_NUMBER_VERSION\")/\"$APP_VERCODE\"/g" \
-          "$osmand_dir/build.gradle"    &&
+          "$OSMAND_DIR/build.gradle"    &&
         sed -i \
           -e "s/System.getenv(\"TARGET_APP_NAME\")/\"$APP_NAME\"/g" \
-          "$osmand_dir/build.gradle"
+          "$OSMAND_DIR/build.gradle"
 
 
     - name: Get current date with timezone into env variable
