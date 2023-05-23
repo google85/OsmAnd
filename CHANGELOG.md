@@ -6,3 +6,4 @@
     - added `USEFUL.md` map file
     - [DONE] first apk artifact!
     - Changing night build information (version/appname)
+    - setting `APK_VERSION_SUFFIX` env for '#build' number in versionName

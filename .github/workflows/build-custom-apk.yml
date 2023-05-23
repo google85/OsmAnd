@@ -104,6 +104,7 @@ jobs:
       working-directory: ./android
       env:
         APP_EDITION: "2023-05-23-16:33 edition"
+        APK_VERSION_SUFFIX: "#build${{ github.run_number }}"
       run: ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
 
