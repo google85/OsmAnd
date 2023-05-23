@@ -56,7 +56,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-#        cache: gradle
+        cache: gradle
 
 #    - name: Adding my keystore file content from secret
 #      run: |
