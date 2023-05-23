@@ -3,9 +3,6 @@ name: Android CI - build custom APK
 on:
   push:
     branches: [ "custom-apk" ]
-#    branches: [ "master" ]
-#  pull_request:
-#    branches: [ "master" ]
 
 permissions:
   contents: read
@@ -62,18 +59,12 @@ jobs:
 #      run: |
 #        cd keystores/ && echo "${{ secrets.MY_KEYSTORE_FILE_BASE64 }}" > ./my.keystore.encoded.txt && openssl base64 -d -in ./my.keystore.encoded.txt -out ./my.keystore && ls -al
 
-#    - name: Changing build number suffix in build.gradle to '${{ github.run_number }}'
-#      run: |
-#        cd app/ && \
-#        sed -i -r 's/versionName \"(.*)-([0-9]{2})\"$/versionName "\1-${{ github.run_number }}"/' build.gradle && \
-#        sed -i -r 's/versionCode (.*)([0-9]{2})$/versionCode \1${{ github.run_number }}/' build.gradle
-
     - name: Changing night build information (version/appname)
       working-directory: ./android
       env:
         OSMAND_DIR: "."
-        APP_VERSION: "4.5.0"
-        APP_VERCODE: 4500
+        APP_VERSION: "4.5.0"          #
+        APP_VERCODE: 4500             #
       run: |
         sed -i \
           -e "s/System.getenv(\"APK_VERSION\")/\"$APP_VERSION\"/g" \
@@ -98,7 +89,7 @@ jobs:
       working-directory: ./android
       env:
         TARGET_APP_NAME: "OsmAndDjBpF"
-        APP_EDITION: "2023-05-23-17:12"
+        APP_EDITION: "${{ env.DATETIME_LAST_BUILD }}"         # automatic
         APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
       run: ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
