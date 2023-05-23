@@ -68,6 +68,25 @@ jobs:
 #        sed -i -r 's/versionName \"(.*)-([0-9]{2})\"$/versionName "\1-${{ github.run_number }}"/' build.gradle && \
 #        sed -i -r 's/versionCode (.*)([0-9]{2})$/versionCode \1${{ github.run_number }}/' build.gradle
 
+    - name: Changing night build information (version/appname)
+      working-directory: ./android
+      env:
+        version: "4.5.1"
+        vercode: 4501
+        appName: "OsmAndDjBpF"
+      run: |
+        sed -i \
+          -e "s/System.getenv(\"APK_VERSION\")/\"$version\"/g" \
+          "$osmand_dir/build.gradle"    &&
+        sed -i \
+          -e "s/System.getenv(\"APK_NUMBER_VERSION\")/\"$vercode\"/g" \
+          "$osmand_dir/build.gradle"    &&
+        sed -i \
+          -e "s/System.getenv(\"TARGET_APP_NAME\")/\"OsmAndDjBpF\"/g" \
+          "$osmand_dir/build.gradle"
+      run: mv OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug.apk OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug-$(git log -n 1 --format='%h').apk
+
+
     - name: Get current date with timezone into env variable
       run: |
         echo "DATE_LAST_BUILD=$(TZ=':Europe/Bucharest' date +'%Y%m%d')" >> "$GITHUB_ENV"    && \
