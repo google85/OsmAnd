@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build:
-    name: Build & generate custom APK from project
+    name: Build custom APK from project
     runs-on: ubuntu-latest
 
     steps:
@@ -74,6 +74,7 @@ jobs:
         OSMAND_DIR: "."
         APP_VERSION: "4.5.1"
         APP_VERCODE: 4501
+        APP_EDITION: "2023-05-23-16:31 edition"
         APP_NAME: "OsmAndDjBpF"
       run: |
         sed -i \
@@ -101,6 +102,8 @@ jobs:
 
     - name: Build Android APK with Gradle
       working-directory: ./android
+      env:
+        APP_EDITION: "2023-05-23-16:33 edition"
       run: ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
 
