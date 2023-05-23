@@ -99,7 +99,7 @@ jobs:
       env:
         TARGET_APP_NAME: "OsmAndDjBpF"
         APP_EDITION: "2023-05-23-17:12"
-        APK_VERSION_SUFFIX: "#build${{ github.run_number }}"
+        APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
       run: ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
 
