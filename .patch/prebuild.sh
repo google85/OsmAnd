@@ -215,8 +215,8 @@ function addCheckSum() {
 ##cp "$stubs_dir/InAppPurchaseHelperImpl.java" \
 ##    "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchaseHelperImpl.java"
 
-##rm "$osmand_dir/src-google/net/osmand/plus/inapp/util/BillingManager.java"
-##rm "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchasesImpl.java"
+rm "$osmand_dir/src-google/net/osmand/plus/inapp/util/BillingManager.java"
+rm "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchasesImpl.java"
 
 sed -i -e "/.*Preference purchasesSettings.*/,+1d" \
     "$osmand_dir/src/net/osmand/plus/settings/fragments/MainSettingsFragment.java"
@@ -235,36 +235,36 @@ perl -i -0 -p \
 
 # BUILD: Remove location services that needs Google stuff
 
-##rm "$osmand_dir/src/net/osmand/plus/helpers/GmsLocationServiceHelper.java"
-##sed -i \
-##    -e "s/GmsLocationServiceHelper/AndroidApiLocationServiceHelper/g" \
-##    "$osmand_dir/src/net/osmand/plus/OsmandApplication.java"
+rm "$osmand_dir/src/net/osmand/plus/helpers/GmsLocationServiceHelper.java"
+sed -i \
+    -e "s/GmsLocationServiceHelper/AndroidApiLocationServiceHelper/g" \
+    "$osmand_dir/src/net/osmand/plus/OsmandApplication.java"
 
 # COSMETIC: hide location services option (no longer works)
 
-##sed -i \
-##    -e 's/android:key="location_source"/\
-##    android:key="location_source" app:isPreferenceVisible="false"/' \
-##    "$osmand_dir/res/xml/global_settings.xml"
+sed -i \
+    -e 's/android:key="location_source"/\
+    android:key="location_source" app:isPreferenceVisible="false"/' \
+    "$osmand_dir/res/xml/global_settings.xml"
 
 # CUSTOM: Enable file manager permission and remove warning about not
 # being able to access files. See #2691.
 
-##sed -i \
-##    -e '/addItem(sharedStorageItem)/d' \
-##    "$osmand_dir/src/net/osmand/plus/settings/datastorage/DataStorageHelper.java"
-##sed -i \
-##    -e 's!<uses-permission android:name="android.permission.INTERNET" />!\
-##    <uses-permission android:name="android.permission.INTERNET" />\
-##    <uses-permission \
-##        android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />!' \
-##    "$osmand_dir/AndroidManifest.xml"
+sed -i \
+    -e '/addItem(sharedStorageItem)/d' \
+    "$osmand_dir/src/net/osmand/plus/settings/datastorage/DataStorageHelper.java"
+sed -i \
+    -e 's!<uses-permission android:name="android.permission.INTERNET" />!\
+    <uses-permission android:name="android.permission.INTERNET" />\
+    <uses-permission \
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />!' \
+    "$osmand_dir/AndroidManifest.xml"
 
 # CUSTOM: Remove Mapilliary promotion. See !11525, !11480, and #2701.
 
-##sed -i \
-##    '/MapillaryPlugin/d' \
-##    "$osmand_dir/src/net/osmand/plus/mapcontextmenu/builders/cards/NoImagesCard.java"
+sed -i \
+    '/MapillaryPlugin/d' \
+    "$osmand_dir/src/net/osmand/plus/mapcontextmenu/builders/cards/NoImagesCard.java"
 
 # BUILD (non-essential): remove signing configs (done by FDroid anyway, but
 # needed for standalone build to succeed).
