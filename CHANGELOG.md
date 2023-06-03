@@ -1,6 +1,9 @@
 #### Changelog #
 *************************************
 
+- 2023-06-03
+    - added `.patch` folder for building custom `OsmAnd~` app
+
 - 2023-05-23
     - added custom APK build workflow [for this branch only]
     - added `USEFUL.md` map file
