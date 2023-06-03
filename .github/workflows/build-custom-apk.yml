@@ -59,17 +59,27 @@ jobs:
 #      run: |
 #        cd keystores/ && echo "${{ secrets.MY_KEYSTORE_FILE_BASE64 }}" > ./my.keystore.encoded.txt && openssl base64 -d -in ./my.keystore.encoded.txt -out ./my.keystore && ls -al
 
-    - name: Changing night build information (version/appname)
+    - name: Applying custom patch
+      working-directory: ./android/.patch
+      env:
+        OSMAND_DIR: "."
+#        APP_VERSION: "4.5.0"          #
+#        APP_VERCODE: 4500             #
+      run: |
+        chmod +x ./prebuild.sh   &&  \
+        ./prebuild.sh "4.2.7" "4207"
+
+    - name: not Changing night build information (version/appname)
       working-directory: ./android
       env:
         OSMAND_DIR: "."
         APP_VERSION: "4.5.0"          #
         APP_VERCODE: 4500             #
       run: |
-        sed -i \
+        echo   sed -i \
           -e "s/System.getenv(\"APK_VERSION\")/\"$APP_VERSION\"/g" \
           "$OSMAND_DIR/build.gradle"    &&
-        sed -i \
+        echo   sed -i \
           -e "s/System.getenv(\"APK_NUMBER_VERSION\")/\"$APP_VERCODE\"/g" \
           "$OSMAND_DIR/build.gradle"
 
