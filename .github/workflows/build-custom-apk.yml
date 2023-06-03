@@ -91,7 +91,7 @@ jobs:
         TARGET_APP_NAME: "OsmAndDjBpF"
         APP_EDITION: "${{ env.DATETIME_LAST_BUILD }}"         # automatic
         APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
-      run: ./gradlew assembleNightlyFreeLegacyFatDebug
+      run: echo   ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
 
     - name: Rename APK
@@ -101,6 +101,8 @@ jobs:
     - name: Archive APK (Upload artifact)
       uses: actions/upload-artifact@v3
       with:
-        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
-        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
+        name: debug-src-of-custom-apk-build-${{ github.run_number }}
+        path: ./
+#        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
+#        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
         retention-days: 90
