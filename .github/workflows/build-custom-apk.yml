@@ -62,12 +62,11 @@ jobs:
     - name: Applying custom patch
       working-directory: ./android
       env:
-        OSMAND_DIR: "."
-#        APP_VERSION: "4.5.0"          #
-#        APP_VERCODE: 4500             #
+        APP_VERSION: "4.2.7"          #
+        APP_VERCODE: 4207             #
       run: |
         chmod +x ./.patch/prebuild.sh   &&  \
-        ./.patch/prebuild.sh "4.2.7" "4207"
+        ./.patch/prebuild.sh "$APP_VERSION" "$APP_VERCODE"
 
     - name: not Changing night build information (version/appname)
       working-directory: ./android
