@@ -30,20 +30,16 @@ echo "SCRIPT DIR: $script_dir"
 
 pushd "$script_dir"
 
-#android_dir="$script_dir"
 android_dir="$script_dir/android"
 osmand_dir="$android_dir/OsmAnd"
 osmand_java_dir="$android_dir/OsmAnd-java"
-#core_legacy_dir="$script_dir/core-legacy"
-#core_dir="$script_dir/core"
 stubs_dir="$android_dir/.patch/stubs"
+#core_dir="$script_dir/core"
+#core_legacy_dir="$script_dir/core-legacy"
 #mpchartlib_dir="$script_dir/MPAndroidChart"
 
-#echo "ANDROID_DIR: $android_dir"
 echo "OSMAND_DIR: $osmand_dir"
-#echo "OSMAND_JAVA_DIR: $osmand_java_dir"
 echo "STUBS_DIR: $stubs_dir"
-#ls $stubs_dir
 
 #exit 2
 
