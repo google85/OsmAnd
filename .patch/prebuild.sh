@@ -117,31 +117,31 @@ sed -i \
 # not exists in official repo
 # rm -r "$osmand_dir/src/net/osmand/plus/plugins/antplus"
 
-rm "$osmand_dir/res/xml/antplus_settings.xml"
-sed -i \
-    -e "/.*com.dsi.ant.plugins.antplus.*/d" \
-    "$osmand_dir/AndroidManifest.xml"
-sed -i \
-    -e "/.*AntPlus.*/d" \
-    "$osmand_dir/src/net/osmand/plus/plugins/PluginsHelper.java"
-sed -i \
-    -e "/.*AntPlus.*/d" \
-    "$osmand_dir/src/net/osmand/plus/settings/fragments/SettingsScreenType.java"
-sed -i \
-    -e "/.*AntPlusPlugin.*/d" \
-    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
-sed -i \
-    -e "s/WEATHER || this == ANT_PLUS/WEATHER/" \
-    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
-sed -i \
-    -e "/.*ANT_PLUS.*/d" \
-    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
-sed -i \
-    -e "/.*AntPlus.*/d" \
-    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
-sed -i \
-    -e "/.*ANT_PLUS.*/d" \
-    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetType.java"
+##rm "$osmand_dir/res/xml/antplus_settings.xml"
+##sed -i \
+##    -e "/.*com.dsi.ant.plugins.antplus.*/d" \
+##    "$osmand_dir/AndroidManifest.xml"
+##sed -i \
+##    -e "/.*AntPlus.*/d" \
+##    "$osmand_dir/src/net/osmand/plus/plugins/PluginsHelper.java"
+##sed -i \
+##    -e "/.*AntPlus.*/d" \
+##    "$osmand_dir/src/net/osmand/plus/settings/fragments/SettingsScreenType.java"
+##sed -i \
+##    -e "/.*AntPlusPlugin.*/d" \
+##    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
+#sed -i \
+#    -e "s/WEATHER || this == ANT_PLUS/WEATHER/" \
+#    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
+#sed -i \
+#    -e "/.*ANT_PLUS.*/d" \
+#    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
+#sed -i \
+#    -e "/.*AntPlus.*/d" \
+#    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetGroup.java"
+##sed -i \
+##    -e "/.*ANT_PLUS.*/d" \
+##    "$osmand_dir/src/net/osmand/plus/views/mapwidgets/WidgetType.java"
 
 # BUILD: Switch OsmAndCore_android to the OpenGL core built in build.sh
 
@@ -210,13 +210,13 @@ function addCheckSum() {
 # BUILD: Remove billing code and options from menus, using stubs where
 # needed.
 
-cp "$stubs_dir/RateUsHelper.java" \
-    "$osmand_dir/src/net/osmand/plus/helpers/RateUsHelper.java"
-cp "$stubs_dir/InAppPurchaseHelperImpl.java" \
-    "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchaseHelperImpl.java"
+##cp "$stubs_dir/RateUsHelper.java" \
+##    "$osmand_dir/src/net/osmand/plus/helpers/RateUsHelper.java"
+##cp "$stubs_dir/InAppPurchaseHelperImpl.java" \
+##    "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchaseHelperImpl.java"
 
-rm "$osmand_dir/src-google/net/osmand/plus/inapp/util/BillingManager.java"
-rm "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchasesImpl.java"
+##rm "$osmand_dir/src-google/net/osmand/plus/inapp/util/BillingManager.java"
+##rm "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchasesImpl.java"
 
 sed -i -e "/.*Preference purchasesSettings.*/,+1d" \
     "$osmand_dir/src/net/osmand/plus/settings/fragments/MainSettingsFragment.java"
@@ -235,36 +235,36 @@ perl -i -0 -p \
 
 # BUILD: Remove location services that needs Google stuff
 
-rm "$osmand_dir/src/net/osmand/plus/helpers/GmsLocationServiceHelper.java"
-sed -i \
-    -e "s/GmsLocationServiceHelper/AndroidApiLocationServiceHelper/g" \
-    "$osmand_dir/src/net/osmand/plus/OsmandApplication.java"
+##rm "$osmand_dir/src/net/osmand/plus/helpers/GmsLocationServiceHelper.java"
+##sed -i \
+##    -e "s/GmsLocationServiceHelper/AndroidApiLocationServiceHelper/g" \
+##    "$osmand_dir/src/net/osmand/plus/OsmandApplication.java"
 
 # COSMETIC: hide location services option (no longer works)
 
-sed -i \
-    -e 's/android:key="location_source"/\
-    android:key="location_source" app:isPreferenceVisible="false"/' \
-    "$osmand_dir/res/xml/global_settings.xml"
+##sed -i \
+##    -e 's/android:key="location_source"/\
+##    android:key="location_source" app:isPreferenceVisible="false"/' \
+##    "$osmand_dir/res/xml/global_settings.xml"
 
 # CUSTOM: Enable file manager permission and remove warning about not
 # being able to access files. See #2691.
 
-sed -i \
-    -e '/addItem(sharedStorageItem)/d' \
-    "$osmand_dir/src/net/osmand/plus/settings/datastorage/DataStorageHelper.java"
-sed -i \
-    -e 's!<uses-permission android:name="android.permission.INTERNET" />!\
-    <uses-permission android:name="android.permission.INTERNET" />\
-    <uses-permission \
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />!' \
-    "$osmand_dir/AndroidManifest.xml"
+##sed -i \
+##    -e '/addItem(sharedStorageItem)/d' \
+##    "$osmand_dir/src/net/osmand/plus/settings/datastorage/DataStorageHelper.java"
+##sed -i \
+##    -e 's!<uses-permission android:name="android.permission.INTERNET" />!\
+##    <uses-permission android:name="android.permission.INTERNET" />\
+##    <uses-permission \
+##        android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />!' \
+##    "$osmand_dir/AndroidManifest.xml"
 
 # CUSTOM: Remove Mapilliary promotion. See !11525, !11480, and #2701.
 
-sed -i \
-    '/MapillaryPlugin/d' \
-    "$osmand_dir/src/net/osmand/plus/mapcontextmenu/builders/cards/NoImagesCard.java"
+##sed -i \
+##    '/MapillaryPlugin/d' \
+##    "$osmand_dir/src/net/osmand/plus/mapcontextmenu/builders/cards/NoImagesCard.java"
 
 # BUILD (non-essential): remove signing configs (done by FDroid anyway, but
 # needed for standalone build to succeed).

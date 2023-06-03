@@ -1,6 +1,9 @@
 #### Changelog #
 *************************************
 
+- 2023-06-04
+    - [IN-PROGRESS] disabling some, activating some patches...
+
 - 2023-06-03
     - added `.patch` folder for building custom `OsmAnd~` app
     - added but not used `prebuild.sh` script for GitHub actions
