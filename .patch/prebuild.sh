@@ -39,7 +39,7 @@ osmand_java_dir="$android_dir/OsmAnd-java"
 stubs_dir="$android_dir/.patch/stubs"
 #mpchartlib_dir="$script_dir/MPAndroidChart"
 
-echo "ANDROID_DIR: $android_dir"
+#echo "ANDROID_DIR: $android_dir"
 echo "OSMAND_DIR: $osmand_dir"
 #echo "OSMAND_JAVA_DIR: $osmand_java_dir"
 echo "STUBS_DIR: $stubs_dir"

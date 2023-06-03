@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: debug - Build custom APK from project
+    name: Build custom APK from project
     runs-on: ubuntu-latest
 
     steps:
@@ -48,12 +48,12 @@ jobs:
         repository: osmandapp/OsmAnd-misc
         path: misc
 
-##    - name: set up JDK 11
-##      uses: actions/setup-java@v3
-##      with:
-##        java-version: '11'
-##        distribution: 'adopt'
-##        cache: gradle
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: gradle
 
 #    - name: Adding my keystore file content from secret
 #      run: |
@@ -63,7 +63,7 @@ jobs:
       working-directory: ./android
       env:
         APP_VERSION: "4.5.0"          #
-        APP_VERCODE: 4501             #
+        APP_VERCODE: 4503             #
       run: |
         chmod +x ./.patch/prebuild.sh   &&  \
         ./.patch/prebuild.sh "$APP_VERSION" "$APP_VERCODE"
@@ -86,19 +86,19 @@ jobs:
         TARGET_APP_NAME: "OsmAndDjBpF"
         APP_EDITION: "${{ env.DATETIME_LAST_BUILD }}"         # automatic
         APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
-      run: echo   ./gradlew assembleNightlyFreeLegacyFatDebug
+      run: ./gradlew assembleNightlyFreeLegacyFatDebug
       #run: ./gradlew assembleRelease  --no-daemon
 
     - name: Rename APK
       working-directory: ./android
-      run: echo   mv OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug.apk OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug-$(git log -n 1 --format='%h').apk
+      run: mv OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug.apk OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug-$(git log -n 1 --format='%h').apk
 
     - name: Archive APK (Upload artifact)
       uses: actions/upload-artifact@v3
       with:
-        name: debug-src-of-custom-apk-build-${{ github.run_number }}
-        path: android/OsmAnd/build.gradle
+#        name: debug-src-of-custom-apk-build-${{ github.run_number }}
+#        path: android/OsmAnd/build.gradle
 #        path: android
-#        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
-#        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
+        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
+        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
         retention-days: 90
