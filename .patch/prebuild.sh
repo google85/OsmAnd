@@ -210,10 +210,10 @@ function addCheckSum() {
 # BUILD: Remove billing code and options from menus, using stubs where
 # needed.
 
-##cp "$stubs_dir/RateUsHelper.java" \
-##    "$osmand_dir/src/net/osmand/plus/helpers/RateUsHelper.java"
-##cp "$stubs_dir/InAppPurchaseHelperImpl.java" \
-##    "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchaseHelperImpl.java"
+cp "$stubs_dir/RateUsHelper.java" \
+    "$osmand_dir/src/net/osmand/plus/helpers/RateUsHelper.java"
+cp "$stubs_dir/InAppPurchaseHelperImpl.java" \
+    "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchaseHelperImpl.java"
 
 rm "$osmand_dir/src-google/net/osmand/plus/inapp/util/BillingManager.java"
 rm "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchasesImpl.java"
