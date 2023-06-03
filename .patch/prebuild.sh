@@ -36,7 +36,7 @@ osmand_dir="$android_dir/OsmAnd"
 osmand_java_dir="$android_dir/OsmAnd-java"
 #core_legacy_dir="$script_dir/core-legacy"
 #core_dir="$script_dir/core"
-stubs_dir="$script_dir/.patch/stubs"
+stubs_dir="$android_dir/.patch/stubs"
 #mpchartlib_dir="$script_dir/MPAndroidChart"
 
 #echo "ANDROID_DIR: $android_dir"
