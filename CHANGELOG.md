@@ -4,6 +4,7 @@
 - 2023-06-03
     - added `.patch` folder for building custom `OsmAnd~` app
     - added but not used `prebuild.sh` script for GitHub actions
+    - using `prebuild.sh` for 'sed's and app rename before creating APK
 
 - 2023-05-23
     - added custom APK build workflow [for this branch only]
