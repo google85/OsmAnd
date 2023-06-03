@@ -71,6 +71,9 @@ sed -i \
 sed -i \
     -e "s/System.getenv(\"TARGET_APP_NAME\")/\"$appName\"/g" \
     "$osmand_dir/build.gradle"
+sed -i \
+    -e "s/\"OsmAnd Nightly\"/\"$appName\"/g" \
+    "$osmand_dir/build.gradle"
 
 ##exit 0
 

@@ -97,7 +97,8 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: debug-src-of-custom-apk-build-${{ github.run_number }}
-        path: android
+        path: android/OsmAnd/build.gradle
+#        path: android
 #        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
 #        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
         retention-days: 90
