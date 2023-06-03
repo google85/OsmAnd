@@ -59,14 +59,14 @@ jobs:
 #      run: |
 #        cd keystores/ && echo "${{ secrets.MY_KEYSTORE_FILE_BASE64 }}" > ./my.keystore.encoded.txt && openssl base64 -d -in ./my.keystore.encoded.txt -out ./my.keystore && ls -al
 
-    - name: Applying custom patch
+    - name: not Applying custom patch
       working-directory: ./android
       env:
         APP_VERSION: "4.5.0"          #
         APP_VERCODE: 4503             #
       run: |
         chmod +x ./.patch/prebuild.sh   &&  \
-        ./.patch/prebuild.sh "$APP_VERSION" "$APP_VERCODE"
+        echo   ./.patch/prebuild.sh "$APP_VERSION" "$APP_VERCODE"
 
     - name: Get current date with timezone into env variable
       run: |
