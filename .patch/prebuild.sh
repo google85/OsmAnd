@@ -28,22 +28,22 @@ script_dir="$(dirname $PWD)";
 echo "SCRIPT DIR: $script_dir"
 #exit 2
 
-###pushd "$script_dir"
+pushd "$script_dir"
 
-android_dir="$script_dir"
-#android_dir="$script_dir/android"
+#android_dir="$script_dir"
+android_dir="$script_dir/android"
 osmand_dir="$android_dir/OsmAnd"
 osmand_java_dir="$android_dir/OsmAnd-java"
 #core_legacy_dir="$script_dir/core-legacy"
 #core_dir="$script_dir/core"
-stubs_dir="$script_dir/.patch/stubs"
+stubs_dir="$android_dir/.patch/stubs"
 #mpchartlib_dir="$script_dir/MPAndroidChart"
 
 #echo "ANDROID_DIR: $android_dir"
 #echo "OSMAND_DIR: $osmand_dir"
 #echo "OSMAND_JAVA_DIR: $osmand_java_dir"
 #echo "STUBS_DIR: $stubs_dir"
-#ls $stubs_dir
+ls $stubs_dir
 
 #exit 2
 
@@ -72,7 +72,7 @@ sed -i \
     -e "s/System.getenv(\"TARGET_APP_NAME\")/\"$appName\"/g" \
     "$osmand_dir/build.gradle"
 
-exit 0
+##exit 0
 
 # BUILD: Remove upstream non-free code including self-hosted pre-built
 # binaries. In particular, the OsmAnd core renderer and company code for
