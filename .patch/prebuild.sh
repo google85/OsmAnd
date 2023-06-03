@@ -72,7 +72,7 @@ sed -i \
     -e "s/System.getenv(\"TARGET_APP_NAME\")/\"$appName\"/g" \
     "$osmand_dir/build.gradle"
 
-exit 2
+exit 0
 
 # BUILD: Remove upstream non-free code including self-hosted pre-built
 # binaries. In particular, the OsmAnd core renderer and company code for

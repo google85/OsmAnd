@@ -1,4 +1,4 @@
-name: Android CI - build custom APK
+name: debug - Android CI - build custom APK
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: Build custom APK from project
+    name: debug - Build custom APK from project
     runs-on: ubuntu-latest
 
     steps:
@@ -102,7 +102,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: debug-src-of-custom-apk-build-${{ github.run_number }}
-        path: ./
+        path: android
 #        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
 #        path: android/OsmAnd/build/outputs/apk/*/*/*.apk
         retention-days: 90
