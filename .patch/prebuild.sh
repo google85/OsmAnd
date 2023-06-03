@@ -36,7 +36,7 @@ osmand_dir="$android_dir/OsmAnd"
 osmand_java_dir="$android_dir/OsmAnd-java"
 #core_legacy_dir="$script_dir/core-legacy"
 #core_dir="$script_dir/core"
-stubs_dir="$android_dir/.patch/stubs"
+stubs_dir="$script_dir/.patch/stubs"
 #mpchartlib_dir="$script_dir/MPAndroidChart"
 
 #echo "ANDROID_DIR: $android_dir"
@@ -48,8 +48,8 @@ ls $stubs_dir
 #exit 2
 
 # BUILD: Add enough memory for the build on FDroid
-echo -e "\norg.gradle.jvmargs=-XX:MaxHeapSize=4096m" \
-    >> "$android_dir/gradle.properties"
+#echo -e "\norg.gradle.jvmargs=-XX:MaxHeapSize=4096m" \
+#    >> "$android_dir/gradle.properties"
 
 # BUILD: Remove OsmAnd self-hosted ivy binary repository.
 #sed -i \
