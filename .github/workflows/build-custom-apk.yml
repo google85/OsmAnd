@@ -48,12 +48,12 @@ jobs:
         repository: osmandapp/OsmAnd-misc
         path: misc
 
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-        cache: gradle
+##    - name: set up JDK 11
+##      uses: actions/setup-java@v3
+##      with:
+##        java-version: '11'
+##        distribution: 'adopt'
+##        cache: gradle
 
 #    - name: Adding my keystore file content from secret
 #      run: |
