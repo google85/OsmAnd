@@ -1,4 +1,4 @@
-name: debug - Android CI - build custom APK
+name: Android CI - build custom APK
 
 on:
   push:
@@ -62,25 +62,11 @@ jobs:
     - name: Applying custom patch
       working-directory: ./android
       env:
-        APP_VERSION: "4.2.7"          #
-        APP_VERCODE: 4207             #
+        APP_VERSION: "4.5.0"          #
+        APP_VERCODE: 4501             #
       run: |
         chmod +x ./.patch/prebuild.sh   &&  \
         ./.patch/prebuild.sh "$APP_VERSION" "$APP_VERCODE"
-
-    - name: not Changing night build information (version/appname)
-      working-directory: ./android
-      env:
-        OSMAND_DIR: "."
-        APP_VERSION: "4.5.0"          #
-        APP_VERCODE: 4500             #
-      run: |
-        echo   sed -i \
-          -e "s/System.getenv(\"APK_VERSION\")/\"$APP_VERSION\"/g" \
-          "$OSMAND_DIR/build.gradle"    &&
-        echo   sed -i \
-          -e "s/System.getenv(\"APK_NUMBER_VERSION\")/\"$APP_VERCODE\"/g" \
-          "$OSMAND_DIR/build.gradle"
 
     - name: Get current date with timezone into env variable
       run: |
