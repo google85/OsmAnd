@@ -114,7 +114,10 @@ sed -i \
 sed -i \
     -e "/.*antpluginlib.*/d" \
     "$osmand_dir/build-common.gradle"
-rm -r "$osmand_dir/src/net/osmand/plus/plugins/antplus"
+
+# not exists in official repo
+# rm -r "$osmand_dir/src/net/osmand/plus/plugins/antplus"
+
 rm "$osmand_dir/res/xml/antplus_settings.xml"
 sed -i \
     -e "/.*com.dsi.ant.plugins.antplus.*/d" \
