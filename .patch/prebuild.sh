@@ -210,24 +210,6 @@ function addCheckSum() {
 # BUILD: Remove billing code and options from menus, using stubs where
 # needed.
 
-cp "$stubs_dir/RateUsHelper.java" \
-    "$osmand_dir/src/net/osmand/plus/helpers/RateUsHelper.java"
-cp "$stubs_dir/InAppPurchaseHelperImpl.java" \
-    "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchaseHelperImpl.java"
-
-rm "$osmand_dir/src-google/net/osmand/plus/inapp/util/BillingManager.java"
-rm "$osmand_dir/src-google/net/osmand/plus/inapp/InAppPurchasesImpl.java"
-
-sed -i -e "/.*Preference purchasesSettings.*/,+1d" \
-    "$osmand_dir/src/net/osmand/plus/settings/fragments/MainSettingsFragment.java"
-sed -i -e "/addRestorePurchasesRow();/d" \
-    "$osmand_dir/src/net/osmand/plus/download/ui/DownloadResourceGroupFragment.java"
-sed -i -e "s/return purchases.getSubscriptions();/\
-    return new InAppSubscriptionList(new InAppSubscription[] { }) { };/" \
-    "$osmand_dir/src/net/osmand/plus/inapp/InAppPurchaseHelper.java"
-sed -i -e "s/return purchases\..*;/return null;/" \
-    "$osmand_dir/src/net/osmand/plus/inapp/InAppPurchaseHelper.java"
-
 # COSMETIC: hide purchase settings
 perl -i -0 -p \
     -e 's|<Preference\n.*android:key="purchases_settings"(.*\n){9}||g' \
