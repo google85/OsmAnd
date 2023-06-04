@@ -65,8 +65,8 @@ jobs:
         APP_VERSION: "4.5.0"          #
         APP_VERCODE: 4503             #
       run: |
-        chmod +x ./.patch/prebuild.sh   &&  \
-        ./.patch/prebuild.sh "$APP_VERSION" "$APP_VERCODE"
+        chmod +x ./.patch/prebuild*.sh   &&  \
+        ./.patch/prebuild-only-rename.sh "$APP_VERSION" "$APP_VERCODE"
 
     - name: Get current date with timezone into env variable
       run: |
