@@ -3,6 +3,7 @@
 
 - 2023-06-04
     - [IN-PROGRESS] disabling some, activating some patches...
+    - created a Docker image for local build purposes
 
 - 2023-06-03
     - added `.patch` folder for building custom `OsmAnd~` app
