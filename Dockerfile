@@ -4,7 +4,10 @@ FROM eclipse-temurin:11.0.19_7-jdk-alpine
 #FROM gradle:7.4.2-jdk8-jammy
 #FROM cangol/android-gradle
 
-ENV ANDROID_HOME=/usr/local/lib/android/sdk
+ENV ANDROID_HOME=/opt/android-sdk
+ENV ANDROID_SDK_ROOT=${ANDROID_HOME}
+ENV ANDROID_SDK=${ANDROID_HOME}
+ENV ANDROID_NDK=/opt/android-ndk-r23c
 
 RUN apk add git
 
