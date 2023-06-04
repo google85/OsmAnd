@@ -40,3 +40,6 @@ Thumbs.db
 
 # Output files
 build
+
+# Env
+.env
