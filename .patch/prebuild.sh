@@ -71,6 +71,11 @@ sed -i \
     -e "s/\"OsmAnd Nightly\"/\"$appName\"/g" \
     "$osmand_dir/build.gradle"
 
+# also rename package
+sed -i \
+    -e "s/\"net.osmand.dev\"/\"net.osmand.djbpf\"/g" \
+    "$osmand_dir/build.gradle"
+
 ##exit 0
 
 # BUILD: Remove upstream non-free code including self-hosted pre-built

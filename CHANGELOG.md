@@ -5,6 +5,7 @@
     - [IN-PROGRESS] disabling some, activating some patches...
     - created a Docker image for local build purposes
     - added a `prebuild-only-rename.sh` bash script for temporary success building, without purchase version removes
+    - also rename `net.osmand.dev` -> `net.osmand.djbpf`
 
 - 2023-06-03
     - added `.patch` folder for building custom `OsmAnd~` app
