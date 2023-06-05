@@ -14,7 +14,7 @@ RUN apk -U update && apk -U add \
   make \
   wget \
   && rm -rf /tmp/* \
-	&& rm -rf /var/cache/apk/*
+  && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /opt/app
 RUN mkdir -p android
