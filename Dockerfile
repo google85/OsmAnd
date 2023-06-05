@@ -9,7 +9,12 @@ ENV ANDROID_SDK_ROOT=${ANDROID_HOME}
 ENV ANDROID_SDK=${ANDROID_HOME}
 ENV ANDROID_NDK=/opt/android-ndk-r23c
 
-RUN apk add git
+RUN apk -U update && apk -U add \
+  git \
+  make \
+  wget \
+  && rm -rf /tmp/* \
+	&& rm -rf /var/cache/apk/*
 
 RUN mkdir -p /opt/app
 RUN mkdir -p android
