@@ -78,7 +78,7 @@ jobs:
       run: chmod +x ./gradlew
     - name: Patch memory requirements
       working-directory: ./android
-      run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
+      run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=4096m -XX:MaxHeapSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
 
     - name: Build Android APK with Gradle
       working-directory: ./android
