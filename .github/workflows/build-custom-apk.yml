@@ -86,7 +86,7 @@ jobs:
         TARGET_APP_NAME: "OsmAndDjBpF"
         APP_EDITION: "${{ env.DATETIME_LAST_BUILD }}"         # automatic
         APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
-      run: ./gradlew assembleNightlyFreeLegacyFatDebug
+      run: ./gradlew assembleNightlyFreeLegacyFatDebug  --info --no-daemon
       #run: ./gradlew assembleRelease  --no-daemon
 
     - name: Rename APK
