@@ -35,8 +35,8 @@ osmand_java_dir="$android_dir/OsmAnd-java"
 stubs_dir="$android_dir/.patch/stubs"
 
 # BUILD: Add enough memory for the build on FDroid
-echo -e "\norg.gradle.jvmargs=-XX:MaxHeapSize=4096m" \
-    >> "$android_dir/gradle.properties"
+#echo -e "\norg.gradle.jvmargs=-XX:MaxHeapSize=4096m" \
+#    >> "$android_dir/gradle.properties"
 
 # BUILD: Sub in the right build information (version/appname)
 sed -i \
