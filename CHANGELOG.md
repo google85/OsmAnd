@@ -1,6 +1,9 @@
 #### Changelog #
 *************************************
 
+- 2023-06-10
+    - updated name for custom artifact APK
+
 - 2023-06-09
     - build using Gradle Build Github Action (`gradle/gradle-build-action@v2`)
     - added `gradlew clean` befofe build

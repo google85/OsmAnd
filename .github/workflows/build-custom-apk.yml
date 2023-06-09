@@ -108,6 +108,6 @@ jobs:
 #        name: debug-src-of-custom-apk-build-${{ github.run_number }}
 #        path: android/OsmAnd/build.gradle
 #        path: android
-        name: custom-apk-build-${{ github.run_number }}      # .zip will be added
+        name: custom-osmand-apk-build-${{ github.run_number }}      # .zip will be added
         path: android/OsmAnd/build/outputs/apk/*/*/*.apk
         retention-days: 90
