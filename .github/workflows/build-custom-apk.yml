@@ -82,6 +82,7 @@ jobs:
       uses: gradle/gradle-build-action@v2
       #with:
         #gradle-version: 6.5    # 7.5.1 used as defined in gradle-wrapper.properties
+        #option: '--no-build-cache'
 
     - name: Cleanup previous build directory
       working-directory: ./android
@@ -100,6 +101,8 @@ jobs:
       run: mv OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug.apk OsmAnd/build/outputs/apk/nightlyFreeLegacyFat/debug/OsmAnd-nightlyFree-legacy-fat-debug-$(git log -n 1 --format='%h').apk
 
     - name: Archive APK (Upload artifact)
+      # only upload on pull request
+      #if: github.event_name == 'pull_request'
       uses: actions/upload-artifact@v3
       with:
 #        name: debug-src-of-custom-apk-build-${{ github.run_number }}
