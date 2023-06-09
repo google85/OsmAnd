@@ -97,8 +97,8 @@ jobs:
     # https://github.com/marketplace/actions/gradle-build-action
     - name: Gradle Build Action
       uses: gradle/gradle-build-action@v2
-      #with:
-        #gradle-version: 6.5
+      with:
+        gradle-version: 6.5
 
     - name: Execute Gradle build
       working-directory: ./android
