@@ -63,7 +63,7 @@ jobs:
       working-directory: ./android
       env:
         APP_VERSION: "4.5.0"          #
-        APP_VERCODE: 4503             #
+        APP_VERCODE: 4504             #
       run: |
         chmod +x ./.patch/prebuild*.sh   &&  \
         ./.patch/prebuild-only-rename.sh "$APP_VERSION" "$APP_VERCODE"
@@ -76,9 +76,14 @@ jobs:
     - name: Grant execute permission for Gradlew
       working-directory: ./android
       run: chmod +x ./gradlew
+
+    - name: Cleanup previous build directory
+      working-directory: ./android
+      run: ./gradlew clean
+
     - name: Patch memory requirements
       working-directory: ./android
-      run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=4096m -XX:MaxHeapSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
+      run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:MaxHeapSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
 
     - name: Build Android APK with Gradle
       working-directory: ./android
@@ -86,7 +91,7 @@ jobs:
         TARGET_APP_NAME: "OsmAndDjBpF"
         APP_EDITION: "${{ env.DATETIME_LAST_BUILD }}"         # automatic
         APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
-      run: ./gradlew assembleNightlyFreeLegacyFatDebug  --info --no-daemon
+      run: ./gradlew assembleNightlyFreeLegacyFatDebug  --info
       #run: ./gradlew assembleRelease  --no-daemon
 
     - name: Rename APK
