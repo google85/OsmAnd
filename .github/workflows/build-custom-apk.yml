@@ -52,8 +52,8 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        distribution: 'temurin'
-        #cache: gradle
+        distribution: 'adopt'
+        cache: gradle
 
 #    - name: Adding my keystore file content from secret
 #      run: |
@@ -73,34 +73,21 @@ jobs:
         echo "DATE_LAST_BUILD=$(TZ=':Europe/Bucharest' date +'%Y%m%d')" >> "$GITHUB_ENV"    && \
         echo "DATETIME_LAST_BUILD=$(TZ=':Europe/Bucharest' date +'%F\ %H:%M\ %Z')" >> "$GITHUB_ENV"
 
-    #- name: Grant execute permission for Gradlew
-      #working-directory: ./android
-      #run: chmod +x ./gradlew
-
-    #- name: Cleanup previous build directory
-      #working-directory: ./android
-      #run: ./gradlew clean
-
     - name: Patch memory requirements
       working-directory: ./android
       run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:MaxHeapSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
-
-#    - name: Build Android APK with Gradle
-#      working-directory: ./android
-#      env:
-#        TARGET_APP_NAME: "OsmAndDjBpF"
-#        APP_EDITION: "${{ env.DATETIME_LAST_BUILD }}"         # automatic
-#        APK_VERSION_SUFFIX: "#build${{ github.run_number }}"  # 4.5.0#build8
-#      run: ./gradlew assembleNightlyFreeLegacyFatDebug  --info
-#      #run: ./gradlew assembleRelease  --no-daemon
 
     # https://github.com/marketplace/actions/gradle-build-action
     - name: Gradle Build Action
       uses: gradle/gradle-build-action@v2
       #with:
-        #gradle-version: 6.5
+        #gradle-version: 6.5    # 7.5.1 used as defined in gradle-wrapper.properties
 
-    - name: Execute Gradle build
+    - name: Cleanup previous build directory
+      working-directory: ./android
+      run: ./gradlew clean
+
+    - name: Build Android APK with Gradle
       working-directory: ./android
       env:
         TARGET_APP_NAME: "OsmAndDjBpF"

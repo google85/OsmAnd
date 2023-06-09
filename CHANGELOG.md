@@ -1,6 +1,10 @@
 #### Changelog #
 *************************************
 
+- 2023-06-09
+    - build using Gradle Build Github Action (`gradle/gradle-build-action@v2`)
+    - added `gradlew clean` befofe build
+
 - 2023-06-04
     - [IN-PROGRESS] disabling some, activating some patches...
     - created a Docker image for local build purposes
