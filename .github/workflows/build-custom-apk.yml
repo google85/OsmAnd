@@ -52,7 +52,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        distribution: 'adopt'
+        distribution: 'temurin'
         #cache: gradle
 
 #    - name: Adding my keystore file content from secret
@@ -97,8 +97,8 @@ jobs:
     # https://github.com/marketplace/actions/gradle-build-action
     - name: Gradle Build Action
       uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: 6.5
+      #with:
+        #gradle-version: 6.5
 
     - name: Execute Gradle build
       working-directory: ./android
