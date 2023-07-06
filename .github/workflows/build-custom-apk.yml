@@ -80,7 +80,8 @@ jobs:
     # https://github.com/marketplace/actions/gradle-build-action
     - name: Gradle Build Action
       uses: gradle/gradle-build-action@v2
-      #with:
+      with:
+        cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/custom-apk' }}
         #gradle-version: 6.5    # 7.5.1 used as defined in gradle-wrapper.properties
         #option: '--no-build-cache'
 
