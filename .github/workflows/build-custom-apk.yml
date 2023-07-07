@@ -75,7 +75,7 @@ jobs:
 
     - name: Patch memory requirements
       working-directory: ./android
-      run: printf "\norg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:MaxHeapSize=4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
+      run: printf "\norg.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=4096m -XX:MaxHeapSize=8192m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8\n" >> gradle.properties
 
     # https://github.com/marketplace/actions/gradle-build-action
     - name: Gradle Build Action
