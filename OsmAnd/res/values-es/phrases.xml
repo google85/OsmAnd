@@ -4543,7 +4543,7 @@
     <string name="poi_sump_buster">Bomba de limpieza</string>
     <string name="poi_wedge">Cuña</string>
     <string name="poi_wicket_gate">Postigo</string>
-    <string name="poi_barrier_bar">Bar</string>
+    <string name="poi_barrier_bar">Barrera de barras</string>
     <string name="poi_spikes">Picos</string>
     <string name="poi_barrier_tyres">Llantas</string>
     <string name="poi_tank_trap">Barricada</string>
@@ -4592,4 +4592,6 @@
     <string name="poi_surface_carpet">Superficie: moqueta</string>
     <string name="poi_surface_plastic">Superficie: plástico</string>
     <string name="poi_surface_rubber">Superficie: caucho</string>
+    <string name="poi_assembly_point">Punto de encuentro</string>
+    <string name="poi_osmand_not_pt_shelter_yes">Todas excepto las marquesinas de transporte público</string>
 </resources>

@@ -144,7 +144,7 @@ public class TrackFoldersHelper implements OnTrackFileMoveListener {
 		displayData.anchorView = view;
 		displayData.menuItems = items;
 		displayData.nightMode = fragment.isNightMode();
-		PopUpMenu.showSystemMenu(displayData);
+		PopUpMenu.show(displayData);
 	}
 
 	public void showItemOptionsMenu(@NonNull TrackItem trackItem, @NonNull View view, @NonNull BaseTrackFolderFragment fragment) {
@@ -217,7 +217,7 @@ public class TrackFoldersHelper implements OnTrackFileMoveListener {
 		displayData.anchorView = view;
 		displayData.menuItems = items;
 		displayData.nightMode = fragment.isNightMode();
-		PopUpMenu.showSystemMenu(displayData);
+		PopUpMenu.show(displayData);
 	}
 
 	public void showItemsOptionsMenu(@NonNull Set<TrackItem> trackItems, @NonNull Set<TracksGroup> tracksGroups,
@@ -292,7 +292,7 @@ public class TrackFoldersHelper implements OnTrackFileMoveListener {
 		displayData.anchorView = view;
 		displayData.menuItems = items;
 		displayData.nightMode = fragment.isNightMode();
-		PopUpMenu.showSystemMenu(displayData);
+		PopUpMenu.show(displayData);
 	}
 
 	private void exportTrackItem(@NonNull OsmEditingPlugin plugin, @NonNull TrackItem trackItem, @NonNull BaseTrackFolderFragment fragment) {
@@ -422,7 +422,7 @@ public class TrackFoldersHelper implements OnTrackFileMoveListener {
 	}
 
 	public boolean isLoadingTracks() {
-		return asyncLoader == null || asyncLoader.getStatus() != Status.RUNNING;
+		return asyncLoader != null && asyncLoader.getStatus() == Status.RUNNING;
 	}
 
 	@Override
@@ -456,6 +456,10 @@ public class TrackFoldersHelper implements OnTrackFileMoveListener {
 	}
 
 	public void showExportDialog(@NonNull Collection<TrackItem> trackItems, @NonNull BaseTrackFolderFragment fragment) {
+		if (Algorithms.isEmpty(trackItems)) {
+			app.showToastMessage(R.string.folder_export_empty_error);
+			return;
+		}
 		List<File> selectedFiles = new ArrayList<>();
 		for (TrackItem trackItem : trackItems) {
 			selectedFiles.add(trackItem.getFile());
