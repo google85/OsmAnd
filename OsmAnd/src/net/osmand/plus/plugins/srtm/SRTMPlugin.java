@@ -1,11 +1,13 @@
 package net.osmand.plus.plugins.srtm;
 
 import static net.osmand.aidlapi.OsmAndCustomizationConstants.CONTOUR_LINES;
-import static net.osmand.aidlapi.OsmAndCustomizationConstants.MAP_ENABLE_3D_MAPS_ID;
 import static net.osmand.aidlapi.OsmAndCustomizationConstants.PLUGIN_SRTM;
+import static net.osmand.aidlapi.OsmAndCustomizationConstants.RELIEF_3D_ID;
 import static net.osmand.aidlapi.OsmAndCustomizationConstants.TERRAIN_CATEGORY_ID;
+import static net.osmand.aidlapi.OsmAndCustomizationConstants.TERRAIN_DEPTH_CONTOURS;
 import static net.osmand.aidlapi.OsmAndCustomizationConstants.TERRAIN_DESCRIPTION_ID;
 import static net.osmand.aidlapi.OsmAndCustomizationConstants.TERRAIN_ID;
+import static net.osmand.aidlapi.OsmAndCustomizationConstants.TERRAIN_PROMO_ID;
 import static net.osmand.plus.download.DownloadActivityType.GEOTIFF_FILE;
 import static net.osmand.plus.widgets.ctxmenu.data.ContextMenuItem.INVALID_ID;
 
@@ -203,11 +205,6 @@ public class SRTMPlugin extends OsmandPlugin {
 		return app.getString(R.string.srtm_plugin_name);
 	}
 
-	@Override
-	public String getHelpFileName() {
-		return "feature_articles/contour-lines-plugin.html";
-	}
-
 	@Nullable
 	@Override
 	public OsmAndFeature getOsmAndFeature() {
@@ -391,7 +388,7 @@ public class SRTMPlugin extends OsmandPlugin {
 		if (isEnabled()) {
 			adapter.addItem(new ContextMenuItem(TERRAIN_CATEGORY_ID)
 					.setCategory(true)
-					.setTitle(app.getString(R.string.shared_string_terrain))
+					.setTitle(app.getString(R.string.srtm_plugin_name))
 					.setLayout(R.layout.list_group_title_with_switch));
 
 			if (isLocked()) {
@@ -404,7 +401,7 @@ public class SRTMPlugin extends OsmandPlugin {
 			}
 			NauticalMapsPlugin nauticalPlugin = PluginsHelper.getPlugin(NauticalMapsPlugin.class);
 			if (nauticalPlugin != null) {
-				nauticalPlugin.createAdapterItem(adapter, mapActivity, customRules);
+				nauticalPlugin.createAdapterItem(TERRAIN_DEPTH_CONTOURS, adapter, mapActivity, customRules);
 			}
 		}
 	}
@@ -414,7 +411,6 @@ public class SRTMPlugin extends OsmandPlugin {
 		if (app.useOpenGlRenderer()) {
 			adapter.addItem(new ContextMenuItem(TERRAIN_DESCRIPTION_ID)
 					.setLayout(R.layout.list_item_terrain_description)
-					.setTitleId(TERRAIN_DESCRIPTION_ID.hashCode(), null)
 					.setClickable(false)
 					.setListener((uiAdapter, view, item, isChecked) -> {
 						ChoosePlanFragment.showInstance(activity, OsmAndFeature.TERRAIN);
@@ -422,8 +418,8 @@ public class SRTMPlugin extends OsmandPlugin {
 					}));
 		} else {
 			PurchasingUtils.createPromoItem(adapter, activity, OsmAndFeature.TERRAIN,
-					TERRAIN_ID,
-					R.string.shared_string_terrain,
+					TERRAIN_PROMO_ID,
+					R.string.srtm_plugin_name,
 					R.string.contour_lines_hillshade_slope);
 		}
 	}
@@ -435,7 +431,7 @@ public class SRTMPlugin extends OsmandPlugin {
 			public boolean onRowItemClick(@NonNull @NotNull OnDataChangeUiAdapter uiAdapter, @NonNull @NotNull View view, @NonNull @NotNull ContextMenuItem item) {
 				int[] viewCoordinates = AndroidUtils.getCenterViewCoordinates(view);
 				int itemId = item.getTitleId();
-				if (itemId == R.string.srtm_plugin_name) {
+				if (itemId == R.string.download_srtm_maps) {
 					mapActivity.getDashboard().setDashboardVisibility(true, DashboardOnMap.DashboardType.CONTOUR_LINES, viewCoordinates);
 					return false;
 				} else if (itemId == R.string.shared_string_terrain) {
@@ -448,7 +444,7 @@ public class SRTMPlugin extends OsmandPlugin {
 			@Override
 			public boolean onContextMenuClick(@Nullable OnDataChangeUiAdapter uiAdapter, @Nullable View view, @NotNull ContextMenuItem item, boolean isChecked) {
 				int itemId = item.getTitleId();
-				if (itemId == R.string.srtm_plugin_name) {
+				if (itemId == R.string.download_srtm_maps) {
 					toggleContourLines(mapActivity, isChecked, () -> {
 						RenderingRuleProperty contourLinesProp = app.getRendererRegistry().getCustomRenderingRuleProperty(CONTOUR_LINES_ATTR);
 						if (contourLinesProp != null) {
@@ -490,7 +486,7 @@ public class SRTMPlugin extends OsmandPlugin {
 			boolean contourLinesSelected = isContourLinesLayerEnabled(app);
 			String descr = getPrefDescription(app, contourLinesProp, pref);
 			adapter.addItem(new ContextMenuItem(CONTOUR_LINES)
-					.setTitleId(R.string.srtm_plugin_name, mapActivity)
+					.setTitleId(R.string.download_srtm_maps, mapActivity)
 					.setSelected(contourLinesSelected)
 					.setIcon(R.drawable.ic_plugin_srtm)
 					.setDescription(app.getString(R.string.display_zoom_level, descr))
@@ -517,7 +513,7 @@ public class SRTMPlugin extends OsmandPlugin {
 	}
 
 	private void add3DReliefItem(@NonNull ContextMenuAdapter adapter, @NonNull MapActivity activity) {
-		ContextMenuItem item = new ContextMenuItem(MAP_ENABLE_3D_MAPS_ID)
+		ContextMenuItem item = new ContextMenuItem(RELIEF_3D_ID)
 				.setTitleId(R.string.relief_3d, app)
 				.setIcon(R.drawable.ic_action_3d_relief)
 				.setListener((uiAdapter, view, contextItem, isChecked) -> {

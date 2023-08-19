@@ -2122,7 +2122,7 @@
     <string name="poi_theatre_genre_puppet">Puppenspiel</string>
     <string name="poi_theatre_genre_chamber_music">Kammermusik</string>
     <string name="poi_bandstand">Musikpavillon</string>
-    <string name="poi_consulting">Beratungsstelle</string>
+    <string name="poi_consulting">Unternehmensberatung</string>
     <string name="poi_crop_lavender">Anbauprodukt: Lavendel</string>
     <string name="poi_castle_type_kremlin">Burgtyp: Kreml</string>
     <string name="poi_castle_type_castrum">Burgtyp: römisches Kastell</string>
@@ -4594,4 +4594,10 @@
     <string name="poi_surface_rubber">Oberfläche: Gummi</string>
     <string name="poi_assembly_point">Sammelplatz</string>
     <string name="poi_osmand_not_pt_shelter_yes">Alle außer Wartehäuschen für öffentliche Verkehrsmittel</string>
+    <string name="poi_foot_designated">Ausgewiesen für Fußgänger</string>
+    <string name="poi_horse_designated">Ausgewiesen für Pferde</string>
+    <string name="poi_bicycle_designated">Ausgewiesen für Fahrräder</string>
+    <string name="poi_motor_vehicle_designated">Ausgewiesen für Kraftfahrzeuge</string>
+    <string name="poi_motorcar_designated">Ausgewiesen für PKW</string>
+    <string name="poi_vehicle_designated">Ausgewiesen für Fahrzeuge</string>
 </resources>
