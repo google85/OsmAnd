@@ -42,7 +42,6 @@ import net.osmand.plus.R;
 import net.osmand.plus.widgets.tools.SimpleTextWatcher;
 import net.osmand.plus.download.CityItem;
 import net.osmand.plus.download.DownloadActivity;
-import net.osmand.plus.download.DownloadActivity.BannerAndDownloadFreeVersion;
 import net.osmand.plus.download.DownloadActivityType;
 import net.osmand.plus.download.DownloadIndexesThread.DownloadEvents;
 import net.osmand.plus.download.DownloadResourceGroup;
@@ -87,7 +86,6 @@ public class SearchDialogFragment extends DialogFragment implements DownloadEven
 	private SearchListAdapter listAdapter;
 	private BannerAndDownloadFreeVersion banner;
 	private String searchText;
-	private View searchView;
 	private EditText searchEditText;
 	private ProgressBar progressBar;
 	private ImageButton clearButton;
@@ -152,7 +150,7 @@ public class SearchDialogFragment extends DialogFragment implements DownloadEven
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(listAdapter);
 
-		searchView = inflater.inflate(R.layout.search_text_layout, toolbar, false);
+		View searchView = inflater.inflate(R.layout.search_text_layout, toolbar, false);
 		toolbar.addView(searchView);
 
 		searchEditText = view.findViewById(R.id.searchEditText);

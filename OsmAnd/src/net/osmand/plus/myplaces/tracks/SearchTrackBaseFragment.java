@@ -69,7 +69,6 @@ public abstract class SearchTrackBaseFragment extends BaseOsmAndDialogFragment i
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		if (!selectionHelper.hasAnyItems()) {
 			setupSelectionHelper();
 		}
@@ -87,15 +86,10 @@ public abstract class SearchTrackBaseFragment extends BaseOsmAndDialogFragment i
 
 		Fragment fragment = getTargetFragment();
 		List<TrackItem> trackItems = new ArrayList<>(selectionHelper.getAllItems());
-		adapter = new SearchTracksAdapter(app, trackItems, nightMode, selectionMode);
+		adapter = createAdapter(trackItems);
 		adapter.setTracksSortMode(getTracksSortMode());
 		adapter.setSortTracksListener(this);
 		adapter.setSelectionListener(getTrackSelectionListener());
-		adapter.setFilterCallback(filteredItems -> {
-			adapter.updateFilteredItems(filteredItems);
-			updateButtonsState();
-			return true;
-		});
 		if (fragment instanceof EmptyTracksListener) {
 			adapter.setImportTracksListener((EmptyTracksListener) fragment);
 		}
@@ -118,6 +112,11 @@ public abstract class SearchTrackBaseFragment extends BaseOsmAndDialogFragment i
 		return view;
 	}
 
+	@NonNull
+	protected SearchTracksAdapter createAdapter(List<TrackItem> trackItems) {
+		return new SearchTracksAdapter(app, trackItems, nightMode, selectionMode);
+	}
+
 	protected abstract void setupFragment(View view);
 
 	@Override
@@ -126,17 +125,29 @@ public abstract class SearchTrackBaseFragment extends BaseOsmAndDialogFragment i
 		searchEditText.requestFocus();
 		AndroidUtils.showSoftKeyboard(requireActivity(), searchEditText);
 		startLocationUpdate();
+		setupFilterCallback();
+	}
+
+	protected void setupFilterCallback() {
+		adapter.setFilterCallback(filteredItems -> {
+			updateAdapterWithFilteredItems(filteredItems);
+			return true;
+		});
+	}
+
+	protected void updateAdapterWithFilteredItems(List<TrackItem> filteredItems) {
+		searchEditText.setText(adapter.getCurrentSearchQuery());
+		searchEditText.setSelection(searchEditText.length());
+		adapter.updateFilteredItems(filteredItems);
+		updateButtonsState();
 	}
 
 	public void setupSelectionHelper() {
 		Fragment fragment = getTargetFragment();
 		if (fragment instanceof ItemsSelectionHelper.SelectionHelperProvider) {
 			SelectionHelperProvider<TrackItem> helperProvider = (SelectionHelperProvider<TrackItem>) fragment;
-			ItemsSelectionHelper<TrackItem> helper = helperProvider.getSelectionHelper();
-
-			selectionHelper.setAllItems(helper.getAllItems());
-			selectionHelper.setSelectedItems(helper.getSelectedItems());
-			selectionHelper.setOriginalSelectedItems(helper.getOriginalSelectedItems());
+			ItemsSelectionHelper<TrackItem> originalHelper = helperProvider.getSelectionHelper();
+			selectionHelper.syncWith(originalHelper);
 		}
 	}
 
@@ -170,13 +181,14 @@ public abstract class SearchTrackBaseFragment extends BaseOsmAndDialogFragment i
 		backButton.setOnClickListener((v) -> dismiss());
 		searchEditText = searchContainer.findViewById(R.id.searchEditText);
 		searchEditText.setHint(R.string.search_track_by_name);
-		searchEditText.setTextColor(ContextCompat.getColor(app, R.color.color_white));
+		searchEditText.setTextColor(ContextCompat.getColor(app, R.color.card_and_list_background_light));
 		searchEditText.setHintTextColor(ContextCompat.getColor(app, R.color.white_50_transparent));
 		searchEditText.addTextChangedListener(new SimpleTextWatcher() {
 			@Override
 			public void afterTextChanged(Editable query) {
 				filterTracks(query.toString());
 				AndroidUiHelper.updateVisibility(clearSearchQuery, query.length() > 0);
+				adapter.notifyItemChanged(0);
 			}
 		});
 		clearSearchQuery.setOnClickListener((v) -> resetSearchQuery());
@@ -188,7 +200,7 @@ public abstract class SearchTrackBaseFragment extends BaseOsmAndDialogFragment i
 	}
 
 	protected void filterTracks(@Nullable String query) {
-		adapter.getFilter().filter(query);
+		adapter.filter(query);
 	}
 
 	@Override
